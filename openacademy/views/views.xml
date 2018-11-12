@@ -7,6 +7,7 @@
             <sheet>
                 <group>
                     <field name="name"/>
+                    <field name="responsible_id"/>
                 </group>
             </sheet>
             <notebook>
@@ -21,12 +22,13 @@
       </field>
     </record>
     <record model="ir.ui.view" id="course_list_view">
-      <field name="name">course.form</field>
+      <field name="name">course.list</field>
       <field name="model">openacademy.course</field>
       <field name="arch" type="xml">
-          <tree string="Course Form">
-                    <field name="name"/>
+          <tree string="Course Tree">
+                    <field name="name" string="Name Tree"/>
                     <field name="description"/>
+                    <field name="responsible_id"/>
           </tree>
      </field>
     </record>
@@ -55,4 +57,52 @@
     <!-- menu categories -->
     <menuitem name="Open Academy" id="openacademy_menu" parent="main_openacademy_menu"/>
     <menuitem name="Courses" id="courses_menu" parent="openacademy_menu" action="course_list_action" />
+
+<!-- session form view -->
+        <record model="ir.ui.view" id="session_form_view">
+            <field name="name">session.form</field>
+            <field name="model">openacademy.session</field>
+            <field name="arch" type="xml">
+                <form string="Session Form">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="start_date"/>
+                            <field name="duration"/>
+                            <field name="seats"/>
+                            <field name="instructor_id"/>
+                            <field name="course_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="session_tree_view">
++  63             <field name="name">session.tree</field>
++  64             <field name="model">openacademy.session</field>
++  65             <field name="arch" type="xml">
++  66                 <tree string="Session Tree">
++  69                        <field name="name"/>
++  70                        <field name="start_date"/>
++  71                        <field name="duration"/>
++  72                        <field name="seats"/>
+   73                        <field name="instructor_id"/>
+   74                        <field name="course_id"/>
++  77                 </tree>
++  78             </field>
++  79         </record>
+
+<record model="ir.actions.act_window" id="session_list_action">
+            <field name="name">Sessions</field>
+            <field name="res_model">openacademy.session</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="session_menu" name="Sessions"
+                  parent="openacademy_menu"
+                  action="session_list_action"/>
+
 </odoo>
