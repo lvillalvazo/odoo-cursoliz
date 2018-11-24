@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api, exceptions
 import time
+from psycopg2 import IntegrityError
 
 def get_uid(self, *a):
     return self.env.uid
@@ -36,8 +37,11 @@ class Course(models.Model):
             new_name = "Copy of %s" % (self.name)
         else:
             new_name = "Copy of %s (%s)"% (self.name, copied_count)
-            default['name'] = new_name
+        default['name'] = new_name
+       # try:
         return super(Course, self).copy(default)
+       # except IntegrityError:
+       #     import pdb; pdb.set_trace()
 
 class Session(models.Model):
     _name= 'openacademy.session'
@@ -50,7 +54,7 @@ class Session(models.Model):
     instructor_id = fields.Many2one('res.partner', string='Instructor', domain=['|',('instructor', '=', True), ('category_id.name', 'ilike', 'Teacher')])
     course_id = fields.Many2one('openacademy.course', ondelete='cascade', string="Course", required=True)
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
-    taken_seats = fields.Float(compute='_taken_seats')
+    taken_seats = fields.Float(compute='_taken_seats', store=True)
     active = fields.Boolean(default=True)
 
     @api.depends('seats', 'attendee_ids')
