@@ -3,6 +3,7 @@
 from odoo import models, fields, api, exceptions
 import time
 from psycopg2 import IntegrityError
+from datetime import timedelta
 
 def get_uid(self, *a):
     return self.env.uid
@@ -56,6 +57,41 @@ class Session(models.Model):
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
     taken_seats = fields.Float(compute='_taken_seats', store=True)
     active = fields.Boolean(default=True)
+    end_date = fields.Date(store=True, compute='_get_end_date', inverse='_set_end_date')
+    color = fields.Float()
+ #   hours = fields.Float(
+ #       string="Duration in hours",
+ #       compute='_get_hours', inverse='_set_hours')
+
+#    @api.depends('duration')
+#    def _get_hours(self):
+#        for r in self:
+#            r.hours = r.duration * 24
+#
+#    def _set_hours(self):
+#        for r in self:
+#            r.duration = r.hours / 24
+#
+#    @api.depends('attendee_ids')
+#    def _get_attendees_count(self):
+#        for record in self:
+#            record.attendees_count = len(record.attendee_ids)
+#    attendees_count = fields.Integer(compute='_get_attendees_count', store=True)
+
+#    @api.depends('attendee_ids')
+#    def _get_attendees_count(self):
+#        for record in self:
+#            record.attendees_count = len(record.attendees_ids)
+
+    @api.depends('start_date', 'duration')
+    def _get_end_date(self):
+        for record in self.filtered('start_date'):
+            #start_date = fields.Datetime.from_string(record.start_date)
+            record.end_date = record.start_date + timedelta(days=record.duration, seconds=-1)
+
+    def _set_end_date(self):
+        for record in self.filtered('start_date'):
+            record.duration = (record.end_date - record.start_date).days + 1
 
     @api.depends('seats', 'attendee_ids')
     def _taken_seats(self):
