@@ -128,7 +128,7 @@
             </field>
        </record>
 
-	   <!--       <record model="ir.ui.view" id="session_graph_view">
+   <!--       <record model="ir.ui.view" id="session_graph_view">
            <field name="name">session.graph</field>
            <field name="model">openacademy.session</field>
            <field name="arch" type="xml">
@@ -137,7 +137,7 @@
                    <field name="attendees_count" type="measure"/>
                </graph>
            </field>
-	   </record>-->
+   </record>-->
 
 
 <record model="ir.ui.view" id="session_kanban_view">
@@ -187,7 +187,7 @@
         </field>
     </record>
 
-	<!--<record model="ir.ui.view" id="session_gantt_view">
+<!--<record model="ir.ui.view" id="session_gantt_view">
         <field name="name">session.gantt</field>
         <field name="model">openacademy.session</field>
         <field name="arch" type="xml">
@@ -197,7 +197,7 @@
                 <field name="name"/>
             </gantt>
         </field>
-	</record>-->
+</record>-->
 
 <record model="ir.actions.act_window" id="session_list_action">
             <field name="name">Sessions</field>
@@ -210,4 +210,29 @@
                   parent="openacademy_menu"
                   action="session_list_action"/>
 
+<record model="ir.ui.view" id="wizard_form_view">
+        <field name="name">wizard.form</field>
+        <field name="model">openacademy.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Add Attendees">
+                <group>
+                    <field name="session_ids"/>
+                    <field name="attendee_ids"/>
+                </group>
+                <footer>
+                    <button name="subscribe" type="object" string="Subscribe" class="oe_highlight"/>
+                    or
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="launch_session_wizard"
+                name="Add Attendees"
+                src_model="openacademy.session"
+                res_model="openacademy.wizard"
+                view_mode="form"
+                target="new"
+                key2="client_action_multi"/>
 </odoo>
