@@ -128,7 +128,7 @@
             </field>
        </record>
 
-   <!--       <record model="ir.ui.view" id="session_graph_view">
+        <record model="ir.ui.view" id="session_graph_view">
            <field name="name">session.graph</field>
            <field name="model">openacademy.session</field>
            <field name="arch" type="xml">
@@ -137,7 +137,7 @@
                    <field name="attendees_count" type="measure"/>
                </graph>
            </field>
-   </record>-->
+        </record>
 
 
 <record model="ir.ui.view" id="session_kanban_view">

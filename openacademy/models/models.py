@@ -72,11 +72,11 @@ class Session(models.Model):
 #        for r in self:
 #            r.duration = r.hours / 24
 #
-#    @api.depends('attendee_ids')
-#    def _get_attendees_count(self):
-#        for record in self:
-#            record.attendees_count = len(record.attendee_ids)
-#    attendees_count = fields.Integer(compute='_get_attendees_count', store=True)
+    @api.depends('attendee_ids')
+    def _get_attendees_count(self):
+        for record in self:
+            record.attendees_count = len(record.attendee_ids)
+    attendees_count = fields.Integer(compute='_get_attendees_count', store=True)
 
 #    @api.depends('attendee_ids')
 #    def _get_attendees_count(self):
