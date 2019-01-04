@@ -33,3 +33,4 @@ class GlobalTestOpenAcademySession(TransactionCase):
                 'attendee_ids': [(6, 0, [self.partner_absa.id])],
                 'course_id': self.course.id,
             })
+
