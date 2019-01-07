@@ -20,8 +20,8 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
 
     # Method of class that don't is test
     def create_course(
-    self, course_name, course_description, course_responsible_id):
-    # create a course with parameters received
+        self, course_name, course_description, course_responsible_id):
+        # create a course with parameters received
         course_id = self.course.create({
             'name': course_name,
             'description': course_description,
@@ -58,8 +58,8 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
         # print "new_id", new_id
         with self.assertRaisesRegexp(
                 IntegrityError,
-                'duplicate key value violates unique
-                constraint "openacademy_course_name_unique"'
+                'duplicate key value violates unique'
+                'constraint "openacademy_course_name_unique"'
                 ):
                 self.create_course('test1', 'test_description', None)
                 # print "new_id2", new_id2
