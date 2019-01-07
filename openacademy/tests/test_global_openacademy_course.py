@@ -21,7 +21,7 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
     # Method of class that don't is test
     def create_course(
     self, course_name, course_description, course_responsible_id):
-        # create a course with parameters received
+    # create a course with parameters received
         course_id = self.course.create({
             'name': course_name,
             'description': course_description,
@@ -41,8 +41,8 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
         # Error raised Expected with message expected.
         with self.assertRaisesRegexp(
                 IntegrityError,
-                'new row for relation "openacademy_course"
-                violates check constraint'
+                'new row for relation "openacademy_course"'
+                'violates check constraint'
                 ' "openacademy_course_name_description_check"'
                 ):
             # Create a course with same name and description to raise error.
