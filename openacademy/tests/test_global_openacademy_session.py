@@ -3,12 +3,13 @@
 from odoo.tests.common import TransactionCase
 from odoo.exceptions import ValidationError
 
+
 class GlobalTestOpenAcademySession(TransactionCase):
     '''
     This create global test to sessions
     '''
 
-    #Seudo-constructor method
+    # Seudo-constructor method
     def setUp(self):
         super(GlobalTestOpenAcademySession, self).setUp()
         self.session = self.env['openacademy.session']
@@ -17,7 +18,7 @@ class GlobalTestOpenAcademySession(TransactionCase):
 
     # Generic Methods
 
-    #Test Methods
+    # Test Methods
     def test_10_instructor_is_attendee(self):
         '''
         Check that raise of 'A session's instructor can't be an attendee'
@@ -25,7 +26,7 @@ class GlobalTestOpenAcademySession(TransactionCase):
         with self.assertRaisesRegexp(
                 ValidationError,
                 "A session's instructor can't be an attendee"
-            ):
+        ):
             self.session.create({
                 'name': 'Session test 1',
                 'seats': 1,
@@ -33,4 +34,4 @@ class GlobalTestOpenAcademySession(TransactionCase):
                 'attendee_ids': [(6, 0, [self.partner_absa.id])],
                 'course_id': self.course.id,
             })
-#recover
+# recover

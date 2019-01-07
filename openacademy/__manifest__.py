@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-{
+
     'name': "openacademy",
 
     'summary': """
@@ -15,7 +15,7 @@
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_
-    #module_category_data.xml
+    # module_category_data.xml
     # for the full list
     'category': 'Uncategorized',
     'version': '0.1',
