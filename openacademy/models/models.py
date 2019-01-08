@@ -113,14 +113,14 @@ class Session(models.Model):
     def _verify_valid_seats(self):
         if self.filtered(lambda r: r.seats < 0):
             self.active = False
-            return {
+                return {
                 'warning': {'title': _("Incorrect 'seats' value"),
                 'message': (
                 "The number of available seats may not be negative"), }
             }
         if self.seats < len(self.attendee_ids):
             self.active = False
-            return {
+                return {
                 'warning': {'title': ("Too many attendees"),
                 'message': _("Increase seats or remove excess attendees"), }
             }
