@@ -37,7 +37,7 @@ class Course(models.Model):
         if not copied_count:
             new_name = _("Copy of %s") % (self.name)
         else:
-            new_name = ("Copy of %s (%s)")% (self.name, copied_count)
+            new_name = ("Copy of %s (%s)") % (self.name, copied_count)
         default['name'] = new_name
         # try:
         return super(Course, self).copy(default)
@@ -84,7 +84,8 @@ class Session(models.Model):
     def _get_attendees_count(self):
         for record in self:
             record.attendees_count = len(record.attendee_ids)
-    attendees_count = fields.Integer(compute='_get_attendees_count', store=True)
+    attendees_count = fields.Integer(
+            compute='_get_attendees_count', store=True)
 
 #    @api.depends('attendee_ids')
 #    def _get_attendees_count(self):
@@ -105,7 +106,8 @@ class Session(models.Model):
     @api.depends('seats', 'attendee_ids')
     def _taken_seats(self):
         for record in self.filtered(lambda r: r.seats):
-            record.taken_seats = 100.0 * len(record.attendee_ids) / record.seats
+            record.taken_seats = 100.0 * len(
+                record.attendee_ids) / record.seats
 
     @api.onchange('seats', 'attendee_ids')
     def _verify_valid_seats(self):
@@ -113,8 +115,8 @@ class Session(models.Model):
             self.active = False
             return {
                 'warning': {'title': _("Incorrect 'seats' value"),
-                'message': _(
-                    "The number of available seats may not be negative"), }
+                'message': (
+                "The number of available seats may not be negative"), }
             }
         if self.seats < len(self.attendee_ids):
             self.active = False
