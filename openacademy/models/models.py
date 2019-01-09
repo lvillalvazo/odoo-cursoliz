@@ -86,7 +86,7 @@ class Session(models.Model):
         for record in self:
             record.attendees_count = len(record.attendee_ids)
     attendees_count = fields.Integer(
-                _compute_='_get_attendees_count', store=True)
+            _compute_='_get_attendees_count', store=True)
 
 #    @api.depends('attendee_ids')
 #    def _get_attendees_count(self):
@@ -131,7 +131,6 @@ class Session(models.Model):
                 }
             }
         self.active = True
-
 
     @api.constrains('instructor_id', 'attendee_ids')
     def _check_instructor_not_in_attendees(self):
