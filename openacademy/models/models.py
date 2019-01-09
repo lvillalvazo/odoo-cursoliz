@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+
 
 from odoo import models, fields, api, exceptions, _
 # import time
@@ -29,6 +29,7 @@ class Course(models.Model):
                 'name_unique', 'UNIQUE(name)',
                 "The course title must be unique", ), ]
 
+    @api.multi
     def copy(self, default=None):
         if default is None:
             default = {}
@@ -61,10 +62,10 @@ class Session(models.Model):
     course_id = fields.Many2one('openacademy.course', ondelete='cascade',
                                 string="Course", required=True)
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
-    taken_seats = fields.Float(compute='_taken_seats', store=True)
+    taken_seats = fields.Float(_compute_='_taken_seats', store=True)
     active = fields.Boolean(default=True)
     end_date = fields.Date(
-        store=True, compute='_get_end_date',
+        store=True, _compute_='_get_end_date',
         _inverse='_set_end_date')
     color = fields.Float()
 #   hours = fields.Float(
@@ -85,7 +86,7 @@ class Session(models.Model):
         for record in self:
             record.attendees_count = len(record.attendee_ids)
     attendees_count = fields.Integer(
-                compute='_get_attendees_count', store=True)
+                _compute_='_get_attendees_count', store=True)
 
 #    @api.depends('attendee_ids')
 #    def _get_attendees_count(self):
