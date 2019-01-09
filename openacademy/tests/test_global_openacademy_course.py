@@ -47,14 +47,6 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
             # Create a course with same name and description to raise error
             self.create_course('test', 'test', None)
 
-        # with self.assertRaisesRegexp(
-                # IntegrityError,
-                # 'new row for relation "openacademy_course" violates check constraint'
-                # ' "openacademy_course_name_description_check"'
-                # ):
-            # Create a course with same name and description to raise error.
-            # self.create_course('test', 'test', None)
-
     @mute_logger('odoo.sql_db')
     def test_20_two_courses_same_name(self):
         '''
@@ -65,11 +57,19 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
         print("Nuevo Id: %s", new_id)
 
         with self.assertRaisesRegexp(
-                IntegrityError,
-                'duplicate key value violates unique constraint "openacademy_course_name_unique"'
-                ):
-                new_id2 = self.create_course('test1', 'test_description', None)
-                print("Nuevo Id 2: %s", new_id2)
+            IntegrityError,
+            'duplicate key value violates unique constraint '
+            '"openacademy_course_name_unique"'
+        ):
+            new_id2 = self.create_course('test1', 'test description', None)
+            print("Nuevo Id 2: %s ", new_id2)
+
+        # with self.assertRaisesRegexp(
+                # IntegrityError,
+                # 'duplicate key value violates unique constraint "openacademy_course_name_unique"'
+                # ):
+                # new_id2 = self.create_course('test1', 'test_description', None)
+                # print("Nuevo Id 2: %s", new_id2)
 
     def test_15_duplicate_course(self):
         '''
