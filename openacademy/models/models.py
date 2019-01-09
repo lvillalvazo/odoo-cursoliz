@@ -114,18 +114,24 @@ class Session(models.Model):
     def _verify_valid_seats(self):
         if self.filtered(lambda r: r.seats < 0):
             self.active = False
-        return {
-            'warning': {'title': _("Incorrect 'seats' value"),
-                'message': (
-                "The number of available seats may not be negative"), }
+            return {
+                'warning': {
+                    'title': _("Incorrect 'seats' value"),
+                    'message': _(
+                        "The number of available  seats may be negative"),
+                }
             }
+
         if self.seats < len(self.attendee_ids):
             self.active = False
-        return {
-                'warning': {'title': ("Too many attendees"),
-                'message': _("Increase seats or remove excess attendees"), }
-        }
+            return {
+                'warning': {
+                    'title': _("Too many attendees"),
+                    'message': _("Increase seats or remove excess attendees"),
+                }
+            }
         self.active = True
+
 
     @api.constrains('instructor_id', 'attendee_ids')
     def _check_instructor_not_in_attendees(self):
