@@ -64,13 +64,6 @@ class GlobalTestOpenAcademyCourse(TransactionCase):
             new_id2 = self.create_course('test1', 'test description', None)
             print("Nuevo Id 2: %s ", new_id2)
 
-        # with self.assertRaisesRegexp(
-                # IntegrityError,
-                # 'duplicate key value violates unique constraint "openacademy_course_name_unique"'
-                # ):
-                # new_id2 = self.create_course('test1', 'test_description', None)
-                # print("Nuevo Id 2: %s", new_id2)
-
     def test_15_duplicate_course(self):
         '''
         Test to duplicate a course and check that work fine.
