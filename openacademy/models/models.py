@@ -85,7 +85,7 @@ class Session(models.Model):
         for record in self:
             record.attendees_count = len(record.attendee_ids)
     attendees_count = fields.Integer(
-                    compute='_get_attendees_count', store=True)
+                compute='_get_attendees_count', store=True)
 
 #    @api.depends('attendee_ids')
 #    def _get_attendees_count(self):
@@ -115,14 +115,14 @@ class Session(models.Model):
             self.active = False
         return {
             'warning': {'title': _("Incorrect 'seats' value"),
-            'message': (
-            "The number of available seats may not be negative"), }
+                'message': (
+                "The number of available seats may not be negative"), }
             }
         if self.seats < len(self.attendee_ids):
             self.active = False
         return {
-           'warning': {'title': ("Too many attendees"),
-            'message': _("Increase seats or remove excess attendees"), }
+                'warning': {'title': ("Too many attendees"),
+                'message': _("Increase seats or remove excess attendees"), }
         }
         self.active = True
 
